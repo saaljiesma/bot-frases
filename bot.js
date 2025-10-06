@@ -1,57 +1,120 @@
-import TelegramBot from 'node-telegram-bot-api';
-import schedule from 'node-schedule';
-import frases from './frases.js';
-import frasesNoches from './frases_noches.js';
+require('dotenv').config();
+const TelegramBot = require('node-telegram-bot-api');
+const cron = require('node-cron');
 
-const token = process.env.BOT_TOKEN;
+const token = process.env.TELEGRAM_BOT_TOKEN;
 const chatId = process.env.CHAT_ID;
+
+if (!token || !chatId) {
+  console.error("❌ ERROR: Faltan variables de entorno TELEGRAM_BOT_TOKEN o CHAT_ID.");
+  process.exit(1);
+}
 
 const bot = new TelegramBot(token, { polling: true });
 
-// 👉 Función para obtener una frase aleatoria
-function getRandomPhrase(lista) {
-  const randomIndex = Math.floor(Math.random() * lista.length);
-  return lista[randomIndex];
+/* =====================================================
+   📝 FRASES MOTIVADORAS Y BUENAS NOCHES
+   ===================================================== */
+const frasesMotivadoras = [
+  "Hoy es un buen día para empezar algo nuevo 🌞✨",
+  "Cada pequeño paso cuenta, incluso si parece insignificante 👣💪",
+  "Si puedes soñarlo, puedes lograrlo 💭🚀",
+  "No importa cuántas veces caigas, lo importante es levantarte 💪🔥",
+  "Recuerda: cada día es una nueva oportunidad 🌈☀️",
+  "Cree en ti, incluso cuando nadie más lo haga 💫",
+  "El esfuerzo de hoy será tu orgullo mañana 🏆✨"
+];
+
+const frasesBuenasNoches = [
+  "Que tengas una noche llena de calma y sueños bonitos 🌙💤",
+  "Buenas noches, descansa profundamente y sueña con tranquilidad 🌙✨",
+  "Cierra los ojos, relaja tu mente y deja que los sueños te lleven lejos 🌌💫",
+  "Buenas noches 🌙, que la luna cuide de tus pensamientos y el viento te arrulle 🍃💤",
+  "Descansa, mañana será un día mejor 🌅💛",
+  "Duerme bien, porque el mañana está lleno de nuevas oportunidades 🌟🛏️",
+  "Buenas noches 😴✨ Que tus sueños sean tan lindos como tu sonrisa 💛"
+];
+
+/* =====================================================
+   🎲 FUNCIÓN PARA OBTENER FRASE ALEATORIA
+   ===================================================== */
+function generarFrase(lista) {
+  const index = Math.floor(Math.random() * lista.length);
+  return lista[index];
 }
 
-// 👉 Comando /start
+/* =====================================================
+   ⏰ TAREAS PROGRAMADAS
+   ===================================================== */
+
+// ✅ FRASE MOTIVADORA DIARIA (15:55 Irlanda)
+cron.schedule(
+  '55 15 * * *',
+  () => {
+    const frase = generarFrase(frasesMotivadoras);
+    bot.sendMessage(chatId, `🌞 Frase del día:\n\n${frase}\n\n💛 Recuerda que hay gente que te quiere.`);
+    console.log('✅ Frase motivadora enviada:', frase);
+  },
+  { timezone: 'Europe/Dublin' }
+);
+
+// ✅ MENSAJE DE BUENAS NOCHES (22:00 Irlanda)
+cron.schedule(
+  '0 22 * * *',
+  () => {
+    const frase = generarFrase(frasesBuenasNoches);
+    bot.sendMessage(chatId, `🌙 Buenas noches:\n\n${frase}\n\n💛 Duerme bien y sueña bonito.`);
+    console.log('🌙 Mensaje de buenas noches enviado:', frase);
+  },
+  { timezone: 'Europe/Dublin' }
+);
+
+/* =====================================================
+   💬 COMANDOS MANUALES
+   ===================================================== */
+
+// /start → Mensaje de bienvenida
 bot.onText(/\/start/, (msg) => {
-  bot.sendMessage(msg.chat.id, "👋 ¡Hola! Soy tu bot motivacional.\n\nUsa /frase para una frase del día 🌞 o /buenasnoches para cerrar el día 🌙");
+  const bienvenida = `👋 ¡Hola, ${msg.from.first_name || 'amigo'}!  
+Soy tu bot motivacional.  
+Usa estos comandos:
+
+🌞 /frase → Te envío una frase motivadora  
+🌙 /buenasnoches → Te deseo dulces sueños  
+
+Y recuerda: siempre hay alguien que te quiere 💛`;
+  bot.sendMessage(msg.chat.id, bienvenida);
 });
 
-// 👉 Comando /frase
+// /frase → Envía frase motivadora
 bot.onText(/\/frase/, (msg) => {
-  const frase = getRandomPhrase(frases);
+  const frase = generarFrase(frasesMotivadoras);
   bot.sendMessage(msg.chat.id, `${frase}\n\n💛 Recuerda que hay gente que te quiere.`);
+  console.log(`Frase enviada a ${msg.chat.username || msg.chat.id}: ${frase}`);
 });
 
-// 👉 Comando /buenasnoches
+// /buenasnoches → Envía frase nocturna
 bot.onText(/\/buenasnoches/, (msg) => {
-  const frase = getRandomPhrase(frasesNoches);
+  const frase = generarFrase(frasesBuenasNoches);
   bot.sendMessage(msg.chat.id, `${frase}\n\n🌙 Que descanses bien 💛`);
+  console.log(`Frase de buenas noches enviada a ${msg.chat.username || msg.chat.id}: ${frase}`);
 });
 
-// 👉 Respuesta automática a palabras clave
+/* =====================================================
+   💬 RESPUESTA AUTOMÁTICA A PALABRAS CLAVE
+   ===================================================== */
 bot.on('message', (msg) => {
-  const texto = msg.text?.toLowerCase();
-  if (!texto) return;
-
+  const texto = msg.text?.toLowerCase() || '';
   if (texto.includes('triste') || texto.includes('estresado') || texto.includes('mal')) {
-    bot.sendMessage(msg.chat.id, "😔 No estás solo, respira profundo.\nRecuerda que hay gente que te quiere 💛");
-    bot.sendMessage(msg.chat.id, "Si necesitas hablar, escribe a este WhatsApp 💬👇\nhttps://wa.me/34600111222");
+    bot.sendMessage(
+      msg.chat.id,
+      "😔 No estás solo, respira profundo.\nRecuerda que hay gente que te quiere 💛"
+    );
+    bot.sendMessage(
+      msg.chat.id,
+      "Si necesitas hablar, puedes hacerlo aquí 💬👇\nhttps://wa.me/34600111222"
+    );
   }
-});
-
-// 👉 Envío automático diario a las 15:55 hora Irlanda
-schedule.scheduleJob('55 15 * * *', () => {
-  const frase = getRandomPhrase(frases);
-  bot.sendMessage(chatId, `🌞 Frase del día:\n\n${frase}\n\n💛 Recuerda que hay gente que te quiere.`);
-});
-
-// 👉 Envío automático de buenas noches a las 22:30 hora Irlanda
-schedule.scheduleJob('30 22 * * *', () => {
-  const frase = getRandomPhrase(frasesNoches);
-  bot.sendMessage(chatId, `🌙 Mensaje de buenas noches:\n\n${frase}\n\n💛 Duerme bien y sueña bonito.`);
 });
 
 console.log('🤖 Bot motivacional activo en Railway 🚀');
