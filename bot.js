@@ -914,16 +914,16 @@ cron.schedule('0 22 * * *', () => {
 });
 
 // ======== COMANDO MANUAL /frase ========
+
 bot.onText(/\/frase/, (msg) => {
   const frase = generarFrase(frasesMotivadoras);
   bot.sendMessage(msg.chat.id, frase);
   console.log('Frase enviada con /frase:', frase);
 });
-
+// ======== COMANDO MANUAL /cancion ========
+bot.onText(/\/cancion/, (msg) => {
+  const cancion = generarFrase(canciones); // canciones es tu array de canciones con enlaces
+  bot.sendMessage(msg.chat.id, 🎵 Aquí tienes tu canción del día: \n${cancion});
+  console.log('Canción enviada con /cancion:', cancion);
+});
 console.log('Bot avanzado iniciado y listo. 🌞🎵');
-
-
-console.log('🤖 Bot motivacional activo en Railway 🚀');
-
-
-
