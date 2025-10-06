@@ -105,7 +105,7 @@ bot.onText(/\/buenasnoches/, (msg) => {
    ===================================================== */
 bot.on('message', (msg) => {
   const texto = msg.text?.toLowerCase() || '';
-  if (texto.includes('triste') || texto.includes('estresado') || texto.includes('mal')) {
+  if (texto.includes('triste') || texto.includes('estresada') || texto.includes('mal')|| texto.includes('bajona')) {
     bot.sendMessage(
       msg.chat.id,
       "😔 No estás solo, respira profundo.\nRecuerda que hay gente que te quiere 💛"
@@ -118,3 +118,4 @@ bot.on('message', (msg) => {
 });
 
 console.log('🤖 Bot motivacional activo en Railway 🚀');
+
