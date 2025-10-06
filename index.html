@@ -406,15 +406,14 @@
 ];
 
 
-     function generarFrase() {
-    const index = Math.floor(Math.random() * frases.length);
-    document.getElementById('frase').textContent = frases[index];
-    // Mostrar el botón después de la primera frase generada
-    document.getElementById('boton-container').style.display = 'block';
-  }
+    function generarFrase() {
+      const index = Math.floor(Math.random() * frases.length);
+      document.getElementById('frase').innerHTML = frases[index];
+    }
   </script>
 </body>
 </html>
+
 
 
 
