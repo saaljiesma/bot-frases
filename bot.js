@@ -653,7 +653,7 @@ function generarFrase(arreglo) {
 }
 
 // ======== ENVÍO DIARIO: FRASE MOTIVADORA 15:55 ========
-cron.schedule('40 16 * * *', () => {
+cron.schedule('45 16 * * *', () => {
   const frase = generarFrase(frasesMotivadoras);
   bot.sendMessage(chatId, frase);
   console.log('Frase motivadora enviada:', frase);
@@ -678,6 +678,7 @@ bot.onText(/\/frase/, (msg) => {
 });
 
 console.log('Bot iniciado y listo para enviar frases motivadoras a las 15:55, mensajes de buenas noches a las 22:00 y responder /frase (hora Irlanda).');
+
 
 
 
