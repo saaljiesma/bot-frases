@@ -466,7 +466,6 @@ const frasesBuenasNoches = [
 "Que cada respiración te acerque a la paz y la calma interior 🌌💖",
 "Relájate y deja que la noche te arrope con suavidad 🌙💤",
 "Que Morfeo te lleve a un mundo de dulces sueños y tranquilidad 🌌✨",
-frasesBuenasNoches.push(
 "Que la noche te traiga descanso profundo y tranquilidad 🌌💤",
 "Buenas noches, descansa y deja que tus sueños sean felices 🌙💖",
 "Relájate, apaga tus preocupaciones y siente la calma 🌙🕊️",
@@ -522,7 +521,6 @@ frasesBuenasNoches.push(
 "Relájate, respira y deja que la paz te abrace 🌌💖",
 "Que la luna cuide tu noche y te lleve a sueños bonitos 🌕💫",
 "Buenas noches, descansa y sueña con calma 🌙💤",
-frasesBuenasNoches.push(
 "Que la noche te traiga descanso profundo y dulces sueños 🌌💤",
 "Buenas noches, descansa y deja que tus pensamientos se calmen 🌙💖",
 "Relájate y siente la serenidad de la noche 🌌🕊️",
@@ -655,7 +653,7 @@ function generarFrase(arreglo) {
 }
 
 // ======== ENVÍO DIARIO: FRASE MOTIVADORA 15:55 ========
-cron.schedule('33 16 * * *', () => {
+cron.schedule('40 16 * * *', () => {
   const frase = generarFrase(frasesMotivadoras);
   bot.sendMessage(chatId, frase);
   console.log('Frase motivadora enviada:', frase);
@@ -680,5 +678,6 @@ bot.onText(/\/frase/, (msg) => {
 });
 
 console.log('Bot iniciado y listo para enviar frases motivadoras a las 15:55, mensajes de buenas noches a las 22:00 y responder /frase (hora Irlanda).');
+
 
 
