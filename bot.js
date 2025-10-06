@@ -653,7 +653,7 @@ function generarFrase(arreglo) {
 }
 
 // ======== ENVÍO DIARIO: FRASE MOTIVADORA 15:55 ========
-cron.schedule('45 16 * * *', () => {
+cron.schedule('55 15 * * *', () => {
   const frase = generarFrase(frasesMotivadoras);
   bot.sendMessage(chatId, frase);
   console.log('Frase motivadora enviada:', frase);
@@ -662,7 +662,7 @@ cron.schedule('45 16 * * *', () => {
 });
 
 // ======== ENVÍO DIARIO: BUENAS NOCHES 22:00 ========
-cron.schedule('0 22 * * *', () => {
+cron.schedule('50 19 * * *', () => {
   const mensaje = generarFrase(frasesBuenasNoches);
   bot.sendMessage(chatId, mensaje);
   console.log('Mensaje de buenas noches enviado:', mensaje);
@@ -678,6 +678,7 @@ bot.onText(/\/frase/, (msg) => {
 });
 
 console.log('Bot iniciado y listo para enviar frases motivadoras a las 15:55, mensajes de buenas noches a las 22:00 y responder /frase (hora Irlanda).');
+
 
 
 
