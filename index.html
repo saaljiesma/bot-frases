@@ -51,7 +51,7 @@
     <h1>Frases para tus días malos</h1>
     <p id="frase">¡Eres más importante de lo que crees!
         <br> Así que genera una nueva frase para este día tan especial<br>
-      Si necesitas quitar tu tristeza, estrés o cualquier cosa llame al siguiente número <a href= https://wa.me/34642297675>642297675</a>
+      <br> Para una consulta más detenida y más alegría llame a <a href= https://wa.me/34642297675>642297675</a>
     <button onclick="generarFrase()">Nueva frase</button>
   </div>
 
@@ -406,13 +406,16 @@
 ];
 
 
-    function generarFrase() {
-      const index = Math.floor(Math.random() * frases.length);
-      document.getElementById('frase').textContent = frases[index];
-    }
+     function generarFrase() {
+    const index = Math.floor(Math.random() * frases.length);
+    document.getElementById('frase').textContent = frases[index];
+    // Mostrar el botón después de la primera frase generada
+    document.getElementById('boton-container').style.display = 'block';
+  }
   </script>
 </body>
 </html>
+
 
 
 
