@@ -922,8 +922,8 @@ bot.onText(/\/frase/, (msg) => {
 });
 // ======== COMANDO MANUAL /cancion ========
 bot.onText(/\/cancion/, (msg) => {
-  const cancion = generarFrase(canciones); // canciones es tu array de canciones con enlaces
-  bot.sendMessage(msg.chat.id, 🎵 Aquí tienes tu canción del día: \n${cancion});
+  const cancion = generarFrase(cancionesBuenosDias); // canciones es tu array de canciones con enlaces
+  bot.sendMessage(msg.chat.id, Aquí tienes tu canción del día: \n${cancion});
   console.log('Canción enviada con /cancion:', cancion);
 });
 console.log('Bot avanzado iniciado y listo. 🌞🎵');
