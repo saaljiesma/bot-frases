@@ -30,9 +30,9 @@ const frasesBuenasNoches = [
   "Buenas noches, descansa profundamente y sueña con tranquilidad 🌙✨",
   "Cierra los ojos, relaja tu mente y deja que los sueños te lleven lejos 🌌💫",
   "Buenas noches 🌙, que la luna cuide de tus pensamientos y el viento te arrulle 🍃💤",
-  "Descansa, mañana será un día mejor 🌅💛",
+  "Descansa, mañana será un día mejor 🌅❤️",
   "Duerme bien, porque el mañana está lleno de nuevas oportunidades 🌟🛏️",
-  "Buenas noches 😴✨ Que tus sueños sean tan lindos como tu sonrisa 💛"
+  "Buenas noches 😴✨ Que tus sueños sean tan lindos como tu sonrisa ❤️"
 ];
 
 /* =====================================================
@@ -52,7 +52,7 @@ cron.schedule(
   '55 15 * * *',
   () => {
     const frase = generarFrase(frasesMotivadoras);
-    bot.sendMessage(chatId, `🌞 Frase del día:\n\n${frase}\n\n💛 Recuerda que hay gente que te quiere.`);
+    bot.sendMessage(chatId, `🌞 Frase del día:\n\n${frase}\n\n❤️ Recuerda que hay gente que te quiere.`);
     console.log('✅ Frase motivadora enviada:', frase);
   },
   { timezone: 'Europe/Dublin' }
@@ -63,7 +63,7 @@ cron.schedule(
   '0 22 * * *',
   () => {
     const frase = generarFrase(frasesBuenasNoches);
-    bot.sendMessage(chatId, `🌙 Buenas noches:\n\n${frase}\n\n💛 Duerme bien y sueña bonito.`);
+    bot.sendMessage(chatId, `🌙 Buenas noches:\n\n${frase}\n\n❤️ Duerme bien y sueña bonito.`);
     console.log('🌙 Mensaje de buenas noches enviado:', frase);
   },
   { timezone: 'Europe/Dublin' }
@@ -82,21 +82,21 @@ Usa estos comandos:
 🌞 /frase → Te envío una frase motivadora  
 🌙 /buenasnoches → Te deseo dulces sueños  
 
-Y recuerda: siempre hay alguien que te quiere 💛`;
+Y recuerda: siempre hay alguien que te quiere ❤️`;
   bot.sendMessage(msg.chat.id, bienvenida);
 });
 
 // /frase → Envía frase motivadora
 bot.onText(/\/frase/, (msg) => {
   const frase = generarFrase(frasesMotivadoras);
-  bot.sendMessage(msg.chat.id, `${frase}\n\n💛 Recuerda que hay gente que te quiere.`);
+  bot.sendMessage(msg.chat.id, `${frase}\n\n❤️ Recuerda que hay gente que te quiere.`);
   console.log(`Frase enviada a ${msg.chat.username || msg.chat.id}: ${frase}`);
 });
 
 // /buenasnoches → Envía frase nocturna
 bot.onText(/\/buenasnoches/, (msg) => {
   const frase = generarFrase(frasesBuenasNoches);
-  bot.sendMessage(msg.chat.id, `${frase}\n\n🌙 Que descanses bien 💛`);
+  bot.sendMessage(msg.chat.id, `${frase}\n\n🌙 Que descanses bien ❤️`);
   console.log(`Frase de buenas noches enviada a ${msg.chat.username || msg.chat.id}: ${frase}`);
 });
 
@@ -108,14 +108,15 @@ bot.on('message', (msg) => {
   if (texto.includes('triste') || texto.includes('estresada') || texto.includes('mal')|| texto.includes('bajona')) {
     bot.sendMessage(
       msg.chat.id,
-      "😔 No estás solo, respira profundo.\nRecuerda que hay gente que te quiere 💛"
+      "😔 No estás solo, respira profundo.\nRecuerda que hay gente que te quiere ❤️"
     );
     bot.sendMessage(
       msg.chat.id,
-      "Si necesitas hablar, puedes hacerlo aquí 💬👇\nhttps://wa.me/34600111222"
+      "Si necesitas más alegría y quitar todo el estrés, llama aquí💬👇\nhttps://wa.me/3464994 📞"
     );
   }
 });
 
 console.log('🤖 Bot motivacional activo en Railway 🚀');
+
 
