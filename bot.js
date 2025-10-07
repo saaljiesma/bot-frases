@@ -959,16 +959,16 @@ bot.onText(/\/cancion/, (msg) => {
 // ======== DETECCIÓN DE ESTADO DE ÁNIMO ========
 const palabrasNegativas = ["mal", "estresada", "bajón", "bajona", "triste", "agotada", "cansada"];
 const frasesAnimar = [
-  "¡Ánimo! Todo pasa y siempre hay un motivo para sonreír 😊✨\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞",
-  "Respira hondo, relájate y recuerda que eres fuerte 💪🌸 \n Más alegría con una sola llamada: 👉https://wa.me/34642297675 📞",
-  "Los días difíciles también enseñan cosas bonitas 🌈🌻\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞",
-  "Tómate un momento para ti, mereces cuidar de tu bienestar 🧘‍♀️💛\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞",
-  "Después de la tormenta siempre llega la calma 🌤️💖\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞",
-  "Si necesitas desconectar, pon tu canción favorita y sonríe 🎶😄\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞",
-  "Eso es porque no lo has probado bien 😂😂😂\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞",
+  "¡Ánimo! Todo pasa y siempre hay un motivo para sonreír 😊✨\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n",
+  "Respira hondo, relájate y recuerda que eres fuerte 💪🌸 \n Más alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n",
+  "Los días difíciles también enseñan cosas bonitas 🌈🌻\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n",
+  "Tómate un momento para ti, mereces cuidar de tu bienestar 🧘‍♀️💛\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n",
+  "Después de la tormenta siempre llega la calma 🌤️💖\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n",
+  "Si necesitas desconectar, pon tu canción favorita y sonríe 🎶😄\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n",
+  "Eso es porque no lo has probado bien 😂😂😂\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n",
   "Lucy no comas solo lechuga, que te vas a parecer a mi tortuga 🐢",
   "Sabes que ha llegado el momento de que me llames 😄",
-  "Solo recuerda que ya queda menos 🌻 \nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞"
+  "Solo recuerda que ya queda menos 🌻 \nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n"
 ];
 
 bot.on('message', (msg) => {
@@ -981,6 +981,7 @@ bot.on('message', (msg) => {
   }
 });
 console.log('Bot avanzado iniciado y listo. 🌞🎵');
+
 
 
 
