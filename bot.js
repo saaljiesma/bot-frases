@@ -959,28 +959,30 @@ bot.onText(/\/cancion/, (msg) => {
 // ======== DETECCIÓN DE ESTADO DE ÁNIMO ========
 const palabrasNegativas = ["mal", "estresada", "bajón", "bajona", "triste", "agotada", "cansada"];
 const frasesAnimar = [
-  "¡Ánimo! Todo pasa y siempre hay un motivo para sonreír 😊✨\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n          ",
-  "Respira hondo, relájate y recuerda que eres fuerte 💪🌸 \n Más alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n          ",
-  "Los días difíciles también enseñan cosas bonitas 🌈🌻\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n          ",
-  "Tómate un momento para ti, mereces cuidar de tu bienestar 🧘‍♀️💛\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n          ",
-  "Después de la tormenta siempre llega la calma 🌤️💖\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n          ",
-  "Si necesitas desconectar, pon tu canción favorita y sonríe 🎶😄\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n          ",
-  "Eso es porque no lo has probado bien 😂😂😂\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n          ",
+  "¡Ánimo! Todo pasa y siempre hay un motivo para sonreír 😊✨\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞",
+  "Respira hondo, relájate y recuerda que eres fuerte 💪🌸 \n Más alegría con una sola llamada: 👉https://wa.me/34642297675 📞",
+  "Los días difíciles también enseñan cosas bonitas 🌈🌻\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞",
+  "Tómate un momento para ti, mereces cuidar de tu bienestar 🧘‍♀️💛\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞",
+  "Después de la tormenta siempre llega la calma 🌤️💖\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞",
+  "Si necesitas desconectar, pon tu canción favorita y sonríe 🎶😄\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞",
+  "Eso es porque no lo has probado bien 😂😂😂\nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞",
   "Lucy no comas solo lechuga, que te vas a parecer a mi tortuga 🐢",
   "Sabes que ha llegado el momento de que me llames 😄",
-  "Solo recuerda que ya queda menos 🌻 \nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞\n          "
+  "Solo recuerda que ya queda menos 🌻 \nMás alegría con una sola llamada: 👉https://wa.me/34642297675 📞"
 ];
 
 bot.on('message', (msg) => {
   const texto = msg.text.toLowerCase();
   // Si alguna palabra negativa está en el mensaje
+  
   if (palabrasNegativas.some(palabra => texto.includes(palabra))) {
     const mensajeAnimador = generarFrase(frasesAnimar);
-    bot.sendMessage(msg.chat.id, mensajeAnimador);
+    bot.sendMessage(msg.chat.id, mensajeAnimador, {disable_web_page_preview: true});
     console.log('Mensaje animador enviado:', mensajeAnimador);
   }
 });
 console.log('Bot avanzado iniciado y listo. 🌞🎵');
+
 
 
 
