@@ -926,18 +926,18 @@ cron.schedule('0 8 * * *', () => {
 });
 
 // ======== ENVÍO DIARIO: FRASE MOTIVADORA 15:55 ========
-cron.schedule('35 12 * * *', () => {
+cron.schedule('55 15 * * *', () => {
   const frase = generarFrase(frasesMotivadoras);
-  bot.sendMessage(chatId, frase + "\n Ya has salido del trabajo mi amor? Animate que cuento más trabajes más dinero y ahora que has terminado a descansar");
+  bot.sendMessage(chatId, frase + "\nYa has salido del trabajo mi amor? Animate que cuanto más trabajes, más dinero y ahora que has terminado tu jornada a descansar");
   console.log('Frase motivadora enviada:', frase);
 }, {
   timezone: "Europe/Dublin"
 });
 
 // ======== ENVÍO DIARIO: BUENAS NOCHES 22:00 ========
-cron.schedule('34 12 * * *', () => {
+cron.schedule('0 20 * * *', () => {
   const mensaje = generarFrase(frasesBuenasNoches); // Puedes crear otra lista de buenas noches si quieres
-  bot.sendMessage(chatId, mensaje + "\n Descansaa guapii😘❤️");
+  bot.sendMessage(chatId, mensaje + "\nDescansaa😘❤️");
   console.log('Mensaje de buenas noches enviado:', mensaje);
 }, {
   timezone: "Europe/Dublin"
@@ -981,6 +981,7 @@ bot.on('message', (msg) => {
   }
 });
 console.log('Bot avanzado iniciado y listo. 🌞🎵');
+
 
 
 
