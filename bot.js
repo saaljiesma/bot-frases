@@ -926,7 +926,7 @@ cron.schedule('0 8 * * *', () => {
 });
 
 // ======== ENVÍO DIARIO: FRASE MOTIVADORA 15:55 ========
-cron.schedule('30 12 * * *', () => {
+cron.schedule('35 12 * * *', () => {
   const frase = generarFrase(frasesMotivadoras);
   bot.sendMessage(chatId, frase + "\n Ya has salido del trabajo mi amor? Animate que cuento más trabajes más dinero y ahora que has terminado a descansar");
   console.log('Frase motivadora enviada:', frase);
@@ -935,7 +935,7 @@ cron.schedule('30 12 * * *', () => {
 });
 
 // ======== ENVÍO DIARIO: BUENAS NOCHES 22:00 ========
-cron.schedule('32 12 * * *', () => {
+cron.schedule('34 12 * * *', () => {
   const mensaje = generarFrase(frasesBuenasNoches); // Puedes crear otra lista de buenas noches si quieres
   bot.sendMessage(chatId, mensaje + "\n Descansaa guapii😘❤️");
   console.log('Mensaje de buenas noches enviado:', mensaje);
@@ -981,6 +981,7 @@ bot.on('message', (msg) => {
   }
 });
 console.log('Bot avanzado iniciado y listo. 🌞🎵');
+
 
 
 
