@@ -926,16 +926,16 @@ cron.schedule('0 8 * * *', () => {
 });
 
 // ======== ENVÍO DIARIO: FRASE MOTIVADORA 15:55 ========
-cron.schedule('55 15 * * *', () => {
+cron.schedule('14 12 * * *', () => {
   const frase = generarFrase(frasesMotivadoras);
-  bot.sendMessage(chatId, frase);
+  bot.sendMessage(chatId, frase + "Ya has salido del trabajo mi amor? Animate que cuento más trabajes más dinero y ahora que has terminado a descansar");
   console.log('Frase motivadora enviada:', frase);
 }, {
   timezone: "Europe/Dublin"
 });
 
 // ======== ENVÍO DIARIO: BUENAS NOCHES 22:00 ========
-cron.schedule('0 22 * * *', () => {
+cron.schedule('50 19 * * *', () => {
   const mensaje = generarFrase(frasesBuenasNoches); // Puedes crear otra lista de buenas noches si quieres
   bot.sendMessage(chatId, mensaje + "Descansaa guapii😘❤️");
   console.log('Mensaje de buenas noches enviado:', mensaje);
@@ -956,6 +956,30 @@ bot.onText(/\/cancion/, (msg) => {
   bot.sendMessage(msg.chat.id, `Aquí tienes tu canción del día: \n${cancion}`);
   console.log('Canción enviada con /cancion:', cancion);
 });
+// ======== DETECCIÓN DE ESTADO DE ÁNIMO ========
+const palabrasNegativas = ["mal", "estresada", "bajón", "bajona", "triste", "agotada", "cansada"];
+const frasesAnimar = [
+  "¡Ánimo! Todo pasa y siempre hay un motivo para sonreír 😊✨\nMás alegría con una sola llamda: https://wa.me/34642297675",
+  "Respira hondo, relájate y recuerda que eres fuerte 💪🌸 \n Más alegría con una sola llamda: https://wa.me/34642297675",
+  "Los días difíciles también enseñan cosas bonitas 🌈🌻\nMás alegría con una sola llamda: https://wa.me/34642297675",
+  "Tómate un momento para ti, mereces cuidar de tu bienestar 🧘‍♀️💛\nMás alegría con una sola llamda: https://wa.me/34642297675",
+  "Después de la tormenta siempre llega la calma 🌤️💖\nMás alegría con una sola llamda: https://wa.me/34642297675",
+  "Si necesitas desconectar, pon tu canción favorita y sonríe 🎶😄\nMás alegría con una sola llamda: https://wa.me/34642297675",
+  "Eso es porque no lo has probado bien jajajaja\nMás alegría con una sola llamda: https://wa.me/34642297675",
+  "Lucy no comas solo lechuga, que te vas a parecer a mi tortuga",
+  "Sabes que ha llegado el momento de que me llames😄",
+  "Solo recuerda que ya queda menos \nMás alegría con una sola llamda: https://wa.me/34642297675"
+];
 
+bot.on('message', (msg) => {
+  const texto = msg.text.toLowerCase();
+  // Si alguna palabra negativa está en el mensaje
+  if (palabrasNegativas.some(palabra => texto.includes(palabra))) {
+    const mensajeAnimador = generarFrase(frasesAnimar);
+    bot.sendMessage(msg.chat.id, mensajeAnimador);
+    console.log('Mensaje animador enviado:', mensajeAnimador);
+  }
+});
 console.log('Bot avanzado iniciado y listo. 🌞🎵');
+
 
