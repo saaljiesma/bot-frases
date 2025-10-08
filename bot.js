@@ -1,8 +1,9 @@
 require('dotenv').config();
+import fetch from 'node-fetch'; // Si tu Node es >=18 puedes usar fetch nativo
 const TelegramBot = require('node-telegram-bot-api');
 const cron = require('node-cron');
 const fs = require('fs');
-
+import fetch from 'node-fetch'; // Si tu Node es >=18 puedes usar fetch nativo
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const chatId = process.env.CHAT_ID;
 
@@ -981,7 +982,37 @@ bot.on('message', (msg) => {
     console.log('Mensaje animador enviado:', mensajeAnimador);
   }
 });
+
+// ======== OBTENER CURIOSIDAD DEL DÍA ========
+async function obtenerCuriosidad() {
+  try {
+    const res = await fetch('https://uselessfacts.jsph.pl/random.json?language=en');
+    const data = await res.json();
+    return data.text; // La curiosidad en inglés
+  } catch (error) {
+    console.error('Error al obtener curiosidad:', error);
+    return "🧠 No se pudo obtener la curiosidad del día hoy, ¡intenta más tarde!";
+  }
+}
+
+// ======== ENVÍO DIARIO: CURIOSIDAD DEL DÍA 12:00 ========
+cron.schedule('0 12 * * *', async () => {
+  const curiosidad = await obtenerCuriosidad();
+  bot.sendMessage(chatId, `🧠 Curiosity of the Day:\n${curiosidad}`);
+  console.log('Curiosidad del día enviada:', curiosidad);
+}, {
+  timezone: "Europe/Dublin"
+});
+
+// ======== COMANDO MANUAL /curiosidad ========
+bot.onText(/\/curiosidad/, async (msg) => {
+  const curiosidad = await obtenerCuriosidad();
+  bot.sendMessage(msg.chat.id, `🧠 Curiosity:\n${curiosidad}`);
+  console.log('Curiosidad enviada con /curiosidad:', curiosidad);
+});
+
 console.log('Bot avanzado iniciado y listo. 🌞🎵');
+
 
 
 
