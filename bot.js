@@ -996,7 +996,7 @@ async function obtenerCuriosidad() {
 }
 
 // ======== ENVÍO DIARIO: CURIOSIDAD DEL DÍA 12:00 ========
-cron.schedule('0 12 * * *', async () => {
+cron.schedule('1 21 * * *', async () => {
   const curiosidad = await obtenerCuriosidad();
   bot.sendMessage(chatId, `🧠 Curiosity of the Day:\n${curiosidad}`);
   console.log('Curiosidad del día enviada:', curiosidad);
@@ -1012,6 +1012,7 @@ bot.onText(/\/curiosidad/, async (msg) => {
 });
 
 console.log('Bot avanzado iniciado y listo. 🌞🎵');
+
 
 
 
