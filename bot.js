@@ -2,7 +2,6 @@ require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
 const cron = require('node-cron');
 const fs = require('fs');
-import fetch from 'node-fetch'; // Si tu Node es >=18 puedes usar fetch nativo
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const chatId = process.env.CHAT_ID;
 
@@ -995,7 +994,7 @@ async function obtenerCuriosidad() {
 }
 
 // ======== ENVÍO DIARIO: CURIOSIDAD DEL DÍA 12:00 ========
-cron.schedule('2 21 * * *', async () => {
+cron.schedule('11 21 * * *', async () => {
   const curiosidad = await obtenerCuriosidad();
   bot.sendMessage(chatId, `🧠 Curiosity of the Day:\n${curiosidad}`);
   console.log('Curiosidad del día enviada:', curiosidad);
@@ -1011,6 +1010,7 @@ bot.onText(/\/curiosidad/, async (msg) => {
 });
 
 console.log('Bot avanzado iniciado y listo. 🌞🎵');
+
 
 
 
