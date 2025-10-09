@@ -4,15 +4,17 @@ const cron = require('node-cron');
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const chatId = process.env.CHAT_ID;
+
+// Bot en polling
 const bot = new TelegramBot(token, { polling: true });
 
-// Stopwords para extraer palabras clave
+// Stopwords para extraer palabra clave
 const stopwords = [
   "the","a","an","and","or","but","if","then","with","on","in","of","to","for","is","are",
   "was","were","by","from","at","as","it","this","that","these","those","be","has","have","had"
 ];
 
-// Función para extraer palabra clave
+// Extraer palabra clave de la curiosidad
 function extractKeyword(fact) {
   const words = fact.replace(/[.,;:!?"']/g, "").toLowerCase().split(" ");
   const candidates = words.filter(w => !stopwords.includes(w));
@@ -20,26 +22,27 @@ function extractKeyword(fact) {
   return candidates[0] || "science";
 }
 
-// Obtener curiosidad usando fetch nativo
+// Obtener curiosidad con fetch nativo
 async function getCuriosity() {
   try {
     const res = await fetch("https://uselessfacts.jsph.pl/random.json?language=en");
     const data = await res.json();
     const fact = data.text;
     const keyword = extractKeyword(fact);
+    // Imagen aleatoria de Unsplash relacionada con la palabra clave
     const imageUrl = `https://source.unsplash.com/800x400/?${encodeURIComponent(keyword)}&sig=${Date.now()}`;
     return { fact, keyword, imageUrl };
   } catch (err) {
     console.error(err);
     return {
-      fact: "⚠️ Could not fetch a curiosity. Try again!",
+      fact: "⚠️ Could not fetch a curiosity. Try again later!",
       keyword: "error",
       imageUrl: "https://picsum.photos/800/400"
     };
   }
 }
 
-// Función para enviar curiosidad con imagen
+// Enviar curiosidad con imagen y texto
 async function sendCuriosity(chat_id) {
   const { fact, keyword, imageUrl } = await getCuriosity();
   await bot.sendPhoto(chat_id, imageUrl, { caption: `🧠 Curiosity related to: "${keyword}"` });
@@ -57,4 +60,4 @@ cron.schedule('0 12 * * *', async () => {
   console.log("Curiosity of the day sent.");
 }, { timezone: "Europe/Dublin" });
 
-console.log("Telegram Curiosity Bot running without fade...");
+console.log("✅ Telegram Curiosity Bot running with Node 18+ and fetch nativo!");
