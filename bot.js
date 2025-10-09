@@ -1053,7 +1053,40 @@ cron.schedule('11 21 * * *', async () => {
 }, {
   timezone: "Europe/Dublin"
 });
+// Traducir texto al español (usando MyMemory API gratuita)
+async function translateToSpanish(text) {
+  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|es`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.responseData.translatedText;
+}
 
+// Manejo de botones
+bot.on("callback_query", async (query) => {
+  const chatId = query.message.chat.id;
+  const action = query.data;
+
+  if (action === "fact") {
+    const fact = await getFact();
+    bot.sendMessage(chatId, `🧠 Curiosidad (EN):\n${fact}`, {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: "🇪🇸 Traducir al español", callback_data: `translate|${fact}` }]
+        ]
+      }
+    });
+  }
+
+  // Acción para traducir
+  if (action.startsWith("translate|")) {
+    const originalText = action.split("|")[1];
+    const translated = await translateToSpanish(originalText);
+    bot.sendMessage(chatId, `🇪🇸 Traducción:\n${translated}`);
+  }
+
+  bot.answerCallbackQuery(query.id);
+});
 console.log('Bot avanzado iniciado y listo. 🌞🎵');
 console.log("🚀 Bot de curiosidades con imágenes (Unsplash) en marcha...");
+
 
