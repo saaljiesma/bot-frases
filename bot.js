@@ -5,31 +5,26 @@ const cron = require('node-cron');
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const chatId = process.env.CHAT_ID;
 
-// Bot en polling
+// Crear bot en polling
 const bot = new TelegramBot(token, { polling: true });
 
-// Stopwords para extraer palabra clave
-const stopwords = [
-  "the","a","an","and","or","but","if","then","with","on","in","of","to","for","is","are",
-  "was","were","by","from","at","as","it","this","that","these","those","be","has","have","had"
-];
-
-// Extraer palabra clave de la curiosidad
+// Función para extraer palabra clave
 function extractKeyword(fact) {
+  const stopwords = ["the","a","an","and","or","but","if","then","with","on","in","of","to","for","is","are",
+                     "was","were","by","from","at","as","it","this","that","these","those","be","has","have","had"];
   const words = fact.replace(/[.,;:!?"']/g, "").toLowerCase().split(" ");
   const candidates = words.filter(w => !stopwords.includes(w));
   candidates.sort((a,b) => b.length - a.length);
   return candidates[0] || "science";
 }
 
-// Obtener curiosidad con fetch nativo
+// Obtener curiosidad
 async function getCuriosity() {
   try {
     const res = await fetch("https://uselessfacts.jsph.pl/random.json?language=en");
     const data = await res.json();
     const fact = data.text;
     const keyword = extractKeyword(fact);
-    // Imagen aleatoria de Unsplash relacionada con la palabra clave
     const imageUrl = `https://source.unsplash.com/800x400/?${encodeURIComponent(keyword)}&sig=${Date.now()}`;
     return { fact, keyword, imageUrl };
   } catch (err) {
@@ -42,7 +37,7 @@ async function getCuriosity() {
   }
 }
 
-// Enviar curiosidad con imagen y texto
+// Enviar curiosidad al chat
 async function sendCuriosity(chat_id) {
   const { fact, keyword, imageUrl } = await getCuriosity();
   await bot.sendPhoto(chat_id, imageUrl, { caption: `🧠 Curiosity related to: "${keyword}"` });
@@ -51,13 +46,22 @@ async function sendCuriosity(chat_id) {
 
 // Comando manual /curiosity
 bot.onText(/\/curiosity/, async (msg) => {
+  console.log("Command received: /curiosity");
   await sendCuriosity(msg.chat.id);
+});
+
+// Escuchar mensajes que digan "curiosity" sin /
+bot.on('message', async (msg) => {
+  if (msg.text && msg.text.toLowerCase() === "curiosity") {
+    console.log("Message received: curiosity");
+    await sendCuriosity(msg.chat.id);
+  }
 });
 
 // Curiosidad diaria automática a las 12:00
 cron.schedule('0 12 * * *', async () => {
+  console.log("Sending daily curiosity...");
   await sendCuriosity(chatId);
-  console.log("Curiosity of the day sent.");
 }, { timezone: "Europe/Dublin" });
 
-console.log("✅ Telegram Curiosity Bot running with Node 18+ and fetch nativo!");
+console.log("✅ Telegram Curiosity Bot running!");
