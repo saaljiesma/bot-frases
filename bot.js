@@ -1,32 +1,24 @@
 require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
-const cron = require('node-cron');
+const fetch = require('node-fetch');
 
-// ✅ Asegúrate de tener tu token y chat ID en .env
-const token = process.env.TELEGRAM_BOT_TOKEN;
-const chatId = process.env.CHAT_ID;
-
+// Configuración del bot
+const token = process.env.TELEGRAM_BOT_TOKEN; // Tu token
+const chatId = process.env.CHAT_ID;           // Tu chat o grupo
 const bot = new TelegramBot(token, { polling: true });
 
-// Manejar errores de polling
-bot.on('polling_error', (err) => console.error('Polling error:', err));
-
-// Palabras clave frecuentes para curiosidades
-const keywordsList = [
-  "cat","dog","bird","fish","planet","moon","sun","star","tree","flower",
-  "ocean","mountain","river","animal","science","space","human","brain","eye",
-  "bee","crocodile","shrimp","honey","koala","flamingo","elephant","tiger",
-  "snake","mouse","monkey","bear","horse","color","music","language","food"
+// Stopwords para extraer palabras clave
+const stopwords = [
+  "the","a","an","and","or","but","if","then","with","on","in","of","to","for","is","are",
+  "was","were","by","from","at","as","it","this","that","these","those","be","has","have","had"
 ];
 
-// Función para extraer keyword de una curiosidad
+// Función para extraer palabra clave
 function extractKeyword(fact) {
   const words = fact.replace(/[.,;:!?"']/g, "").toLowerCase().split(" ");
-  for (const word of words) {
-    if (keywordsList.includes(word)) return word;
-  }
-  const longWord = words.find(w => w.length > 6) || "science";
-  return longWord;
+  const candidates = words.filter(w => !stopwords.includes(w));
+  candidates.sort((a,b) => b.length - a.length);
+  return candidates[0] || "science";
 }
 
 // Obtener curiosidad
@@ -36,43 +28,40 @@ async function getCuriosity() {
     const data = await res.json();
     const fact = data.text;
     const keyword = extractKeyword(fact);
+
+    // Imagen de Unsplash con palabra clave y &sig para variar
     const imageUrl = `https://source.unsplash.com/800x400/?${encodeURIComponent(keyword)}&sig=${Date.now()}`;
+
     return { fact, keyword, imageUrl };
   } catch (err) {
     console.error(err);
     return {
-      fact: "⚠️ Could not fetch a curiosity. Try again later!",
+      fact: "⚠️ Could not fetch a curiosity. Try again!",
       keyword: "error",
       imageUrl: "https://picsum.photos/800/400"
     };
   }
 }
 
-// Enviar curiosidad al chat
-async function sendCuriosity(chat_id) {
-  const { fact, keyword, imageUrl } = await getCuriosity();
-  await bot.sendPhoto(chat_id, imageUrl, { caption: `🧠 Curiosity related to: "${keyword}"` });
-  await bot.sendMessage(chat_id, fact);
-}
-
-// Comando manual /curiosity
+// Comando para obtener nueva curiosidad
 bot.onText(/\/curiosity/, async (msg) => {
-  console.log("Command received: /curiosity");
-  await sendCuriosity(msg.chat.id);
+  const chat_id = msg.chat.id;
+  const { fact, keyword, imageUrl } = await getCuriosity();
+
+  // Enviar la imagen primero
+  await bot.sendPhoto(chat_id, imageUrl, { caption: `🧠 Curiosity related to: "${keyword}"` });
+
+  // Luego enviar el texto de la curiosidad
+  await bot.sendMessage(chat_id, fact);
 });
 
-// Escuchar mensajes que digan "curiosity" sin /
-bot.on('message', async (msg) => {
-  if (msg.text && msg.text.toLowerCase() === "curiosity") {
-    console.log("Message received: curiosity");
-    await sendCuriosity(msg.chat.id);
-  }
-});
-
-// Curiosidad diaria automática a las 12:00
+// Opcional: enviar curiosidad diaria automáticamente a las 12:00
+const cron = require('node-cron');
 cron.schedule('0 12 * * *', async () => {
-  console.log("Sending daily curiosity...");
-  await sendCuriosity(chatId);
+  const { fact, keyword, imageUrl } = await getCuriosity();
+  await bot.sendPhoto(chatId, imageUrl, { caption: `🧠 Curiosity related to: "${keyword}"` });
+  await bot.sendMessage(chatId, fact);
+  console.log('Curiosity of the day sent.');
 }, { timezone: "Europe/Dublin" });
 
-console.log("✅ Telegram Curiosity Bot running!");
+console.log("Telegram Curiosity Bot is running...");
