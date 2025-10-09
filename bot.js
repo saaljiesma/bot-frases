@@ -1,12 +1,12 @@
 require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
-const fetch = require('node-fetch');
 const cron = require('node-cron');
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const chatId = process.env.CHAT_ID;
 const bot = new TelegramBot(token, { polling: true });
 
+// Stopwords para extraer palabras clave
 const stopwords = [
   "the","a","an","and","or","but","if","then","with","on","in","of","to","for","is","are",
   "was","were","by","from","at","as","it","this","that","these","those","be","has","have","had"
@@ -15,6 +15,7 @@ const stopwords = [
 // Emojis de transición para animación
 const fadeEmojis = ["✨","🌟","🌸","🌞","🌈","💫","🔥","🌻","🌊","🍀"];
 
+// Función para extraer palabra clave
 function extractKeyword(fact) {
   const words = fact.replace(/[.,;:!?"']/g, "").toLowerCase().split(" ");
   const candidates = words.filter(w => !stopwords.includes(w));
@@ -22,6 +23,7 @@ function extractKeyword(fact) {
   return candidates[0] || "science";
 }
 
+// Obtener curiosidad usando fetch nativo
 async function getCuriosity() {
   try {
     const res = await fetch("https://uselessfacts.jsph.pl/random.json?language=en");
@@ -42,7 +44,6 @@ async function getCuriosity() {
 
 // Función para simular fade de imagen con emojis
 async function sendImageWithFade(chat_id, imageUrl, keyword) {
-  // Enviar emojis de transición antes de la imagen
   for (let i = 0; i < 3; i++) {
     const emoji = fadeEmojis[Math.floor(Math.random()*fadeEmojis.length)];
     await bot.sendMessage(chat_id, emoji.repeat(5));
@@ -51,13 +52,12 @@ async function sendImageWithFade(chat_id, imageUrl, keyword) {
   await bot.sendPhoto(chat_id, imageUrl, { caption: `🧠 Curiosity related to: "${keyword}"` });
 }
 
-// Función para enviar la curiosidad con fade palabra por palabra
+// Función para enviar curiosidad con fade palabra por palabra
 async function sendFactWithFade(chat_id, fact) {
   const words = fact.split(" ");
   let message = "";
   for (let i = 0; i < words.length; i++) {
     message += words[i] + " ";
-    // Cada 3 palabras añadimos un emoji de transición
     if ((i+1) % 3 === 0 || i === words.length -1) {
       const emoji = fadeEmojis[Math.floor(Math.random()*fadeEmojis.length)];
       await bot.sendMessage(chat_id, message + emoji);
@@ -83,4 +83,4 @@ cron.schedule('0 12 * * *', async () => {
   console.log("Curiosity of the day sent with advanced fade animation.");
 }, { timezone: "Europe/Dublin" });
 
-console.log("Telegram Curiosity Bot running with advanced fade animation...");
+console.log("Telegram Curiosity Bot running with advanced fade animation (fetch nativo)...");
