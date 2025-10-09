@@ -1053,31 +1053,43 @@ cron.schedule('11 21 * * *', async () => {
 }, {
   timezone: "Europe/Dublin"
 });
-// Traducir texto al español (usando MyMemory API gratuita)
+// Traducir texto al español (MyMemory)
 async function translateToSpanish(text) {
-  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|es`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data.responseData.translatedText;
+  try {
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|es`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.responseData.translatedText;
+  } catch (error) {
+    console.error("❌ Error traduciendo texto:", error);
+    return "No se pudo traducir el texto.";
+  }
 }
 
-// Manejo de botones
+// ========== COMANDOS ==========
+
+// /curiosity manual con botón de traducción
+bot.onText(/\/curiosity/, async (msg) => {
+  const chat_id = msg.chat.id;
+  const fact = await getCuriosity();
+  const keyword = extractKeyword(fact);
+  const imageUrl = await getImage(keyword);
+
+  await bot.sendPhoto(chat_id, imageUrl, {
+    caption: `🧠 Curiosidad del día:\n${fact}`,
+    reply_markup: {
+      inline_keyboard: [
+        [{ text: "🇪🇸 Traducir al español", callback_data: `translate|${fact}` }]
+      ]
+    }
+  });
+});
+
+// Manejar botones
 bot.on("callback_query", async (query) => {
   const chatId = query.message.chat.id;
   const action = query.data;
 
-  if (action === "fact") {
-    const fact = await getFact();
-    bot.sendMessage(chatId, `🧠 Curiosidad (EN):\n${fact}`, {
-      reply_markup: {
-        inline_keyboard: [
-          [{ text: "🇪🇸 Traducir al español", callback_data: `translate|${fact}` }]
-        ]
-      }
-    });
-  }
-
-  // Acción para traducir
   if (action.startsWith("translate|")) {
     const originalText = action.split("|")[1];
     const translated = await translateToSpanish(originalText);
@@ -1086,5 +1098,5 @@ bot.on("callback_query", async (query) => {
 
   bot.answerCallbackQuery(query.id);
 });
-console.log('Bot avanzado iniciado y listo. 🌞🎵');
 console.log("🚀 Bot de curiosidades con imágenes (Unsplash) en marcha...");
+
