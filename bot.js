@@ -20,25 +20,30 @@ async function getCuriosity() {
   }
 }
 
-// Función para obtener imagen relacionada desde Unsplash
+// Función para obtener imagen desde Unsplash
 async function getImage(keyword) {
   try {
-    const res = await fetch(`https://api.unsplash.com/photos/random?query=${encodeURIComponent(keyword)}&orientation=landscape&client_id=${unsplashKey}`);
+    const res = await fetch(`https://api.unsplash.com/search/photos?query=${encodeURIComponent(keyword)}&orientation=landscape&per_page=30&client_id=${unsplashKey}`);
     const data = await res.json();
-    return data.urls?.regular || "https://picsum.photos/800/400";
+
+    if (!data.results || data.results.length === 0) return "https://picsum.photos/800/400";
+
+    // Elegir una foto aleatoria de los resultados
+    const randomIndex = Math.floor(Math.random() * data.results.length);
+    return data.results[randomIndex].urls.regular;
   } catch (err) {
     console.error("❌ Error obteniendo imagen:", err);
     return "https://picsum.photos/800/400";
   }
 }
 
-// Extrae una palabra clave sencilla de la curiosidad
+// Función para extraer palabra clave de la curiosidad
 function extractKeyword(fact) {
   const words = fact.split(" ").filter(w => w.length > 4);
   return words[Math.floor(Math.random() * words.length)] || "science";
 }
 
-// Comando para obtener curiosidad manualmente
+// Comando manual /curiosity
 bot.onText(/\/curiosity/, async (msg) => {
   const chat_id = msg.chat.id;
   const fact = await getCuriosity();
@@ -48,7 +53,7 @@ bot.onText(/\/curiosity/, async (msg) => {
   await bot.sendPhoto(chat_id, imageUrl, { caption: `🧠 Curiosidad del día:\n${fact}` });
 });
 
-// Curiosidad automática diaria (a las 12:00)
+// Curiosidad automática diaria a las 12:00
 cron.schedule('0 12 * * *', async () => {
   const fact = await getCuriosity();
   const keyword = extractKeyword(fact);
