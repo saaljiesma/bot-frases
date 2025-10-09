@@ -12,9 +12,6 @@ const stopwords = [
   "was","were","by","from","at","as","it","this","that","these","those","be","has","have","had"
 ];
 
-// Emojis de transición para animación
-const fadeEmojis = ["✨","🌟","🌸","🌞","🌈","💫","🔥","🌻","🌊","🍀"];
-
 // Función para extraer palabra clave
 function extractKeyword(fact) {
   const words = fact.replace(/[.,;:!?"']/g, "").toLowerCase().split(" ");
@@ -42,45 +39,22 @@ async function getCuriosity() {
   }
 }
 
-// Función para simular fade de imagen con emojis
-async function sendImageWithFade(chat_id, imageUrl, keyword) {
-  for (let i = 0; i < 3; i++) {
-    const emoji = fadeEmojis[Math.floor(Math.random()*fadeEmojis.length)];
-    await bot.sendMessage(chat_id, emoji.repeat(5));
-    await new Promise(r => setTimeout(r, 400));
-  }
+// Función para enviar curiosidad con imagen
+async function sendCuriosity(chat_id) {
+  const { fact, keyword, imageUrl } = await getCuriosity();
   await bot.sendPhoto(chat_id, imageUrl, { caption: `🧠 Curiosity related to: "${keyword}"` });
-}
-
-// Función para enviar curiosidad con fade palabra por palabra
-async function sendFactWithFade(chat_id, fact) {
-  const words = fact.split(" ");
-  let message = "";
-  for (let i = 0; i < words.length; i++) {
-    message += words[i] + " ";
-    if ((i+1) % 3 === 0 || i === words.length -1) {
-      const emoji = fadeEmojis[Math.floor(Math.random()*fadeEmojis.length)];
-      await bot.sendMessage(chat_id, message + emoji);
-      message = "";
-      await new Promise(r => setTimeout(r, 500));
-    }
-  }
+  await bot.sendMessage(chat_id, fact);
 }
 
 // Comando manual /curiosity
 bot.onText(/\/curiosity/, async (msg) => {
-  const chat_id = msg.chat.id;
-  const { fact, keyword, imageUrl } = await getCuriosity();
-  await sendImageWithFade(chat_id, imageUrl, keyword);
-  await sendFactWithFade(chat_id, fact);
+  await sendCuriosity(msg.chat.id);
 });
 
 // Curiosidad diaria automática a las 12:00
 cron.schedule('0 12 * * *', async () => {
-  const { fact, keyword, imageUrl } = await getCuriosity();
-  await sendImageWithFade(chatId, imageUrl, keyword);
-  await sendFactWithFade(chatId, fact);
-  console.log("Curiosity of the day sent with advanced fade animation.");
+  await sendCuriosity(chatId);
+  console.log("Curiosity of the day sent.");
 }, { timezone: "Europe/Dublin" });
 
-console.log("Telegram Curiosity Bot running with advanced fade animation (fetch nativo)...");
+console.log("Telegram Curiosity Bot running without fade...");
