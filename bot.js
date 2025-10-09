@@ -2,20 +2,31 @@ require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
 const cron = require('node-cron');
 
+// ✅ Asegúrate de tener tu token y chat ID en .env
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const chatId = process.env.CHAT_ID;
 
-// Crear bot en polling
 const bot = new TelegramBot(token, { polling: true });
 
-// Función para extraer palabra clave
+// Manejar errores de polling
+bot.on('polling_error', (err) => console.error('Polling error:', err));
+
+// Palabras clave frecuentes para curiosidades
+const keywordsList = [
+  "cat","dog","bird","fish","planet","moon","sun","star","tree","flower",
+  "ocean","mountain","river","animal","science","space","human","brain","eye",
+  "bee","crocodile","shrimp","honey","koala","flamingo","elephant","tiger",
+  "snake","mouse","monkey","bear","horse","color","music","language","food"
+];
+
+// Función para extraer keyword de una curiosidad
 function extractKeyword(fact) {
-  const stopwords = ["the","a","an","and","or","but","if","then","with","on","in","of","to","for","is","are",
-                     "was","were","by","from","at","as","it","this","that","these","those","be","has","have","had"];
   const words = fact.replace(/[.,;:!?"']/g, "").toLowerCase().split(" ");
-  const candidates = words.filter(w => !stopwords.includes(w));
-  candidates.sort((a,b) => b.length - a.length);
-  return candidates[0] || "science";
+  for (const word of words) {
+    if (keywordsList.includes(word)) return word;
+  }
+  const longWord = words.find(w => w.length > 6) || "science";
+  return longWord;
 }
 
 // Obtener curiosidad
