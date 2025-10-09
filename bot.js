@@ -20,17 +20,13 @@ async function getCuriosity() {
   }
 }
 
-// Función para obtener imagen desde Unsplash
+// Función para obtener imagen aleatoria desde Unsplash
 async function getImage(keyword) {
   try {
-    const res = await fetch(`https://api.unsplash.com/search/photos?query=${encodeURIComponent(keyword)}&orientation=landscape&per_page=30&client_id=${unsplashKey}`);
+    const randomSeed = Math.floor(Math.random() * 100000);
+    const res = await fetch(`https://api.unsplash.com/photos/random?query=${encodeURIComponent(keyword)}&orientation=landscape&client_id=${unsplashKey}&sig=${randomSeed}`);
     const data = await res.json();
-
-    if (!data.results || data.results.length === 0) return "https://picsum.photos/800/400";
-
-    // Elegir una foto aleatoria de los resultados
-    const randomIndex = Math.floor(Math.random() * data.results.length);
-    return data.results[randomIndex].urls.regular;
+    return data.urls?.regular || "https://picsum.photos/800/400";
   } catch (err) {
     console.error("❌ Error obteniendo imagen:", err);
     return "https://picsum.photos/800/400";
