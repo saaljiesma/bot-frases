@@ -1,6 +1,6 @@
 require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
-const fetch = require('node-fetch');
+const cron = require('node-cron');
 
 // Configuración del bot
 const token = process.env.TELEGRAM_BOT_TOKEN; // Tu token
@@ -24,6 +24,7 @@ function extractKeyword(fact) {
 // Obtener curiosidad
 async function getCuriosity() {
   try {
+    // Usar fetch nativo de Node 22+
     const res = await fetch("https://uselessfacts.jsph.pl/random.json?language=en");
     const data = await res.json();
     const fact = data.text;
@@ -55,8 +56,7 @@ bot.onText(/\/curiosity/, async (msg) => {
   await bot.sendMessage(chat_id, fact);
 });
 
-// Opcional: enviar curiosidad diaria automáticamente a las 12:00
-const cron = require('node-cron');
+// Envío diario automáticamente a las 12:00
 cron.schedule('0 12 * * *', async () => {
   const { fact, keyword, imageUrl } = await getCuriosity();
   await bot.sendPhoto(chatId, imageUrl, { caption: `🧠 Curiosity related to: "${keyword}"` });
