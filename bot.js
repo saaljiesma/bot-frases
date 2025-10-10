@@ -1043,14 +1043,16 @@ cron.schedule('58 12 * * *', () => {
 }, { timezone: "Europe/Dublin" });
 
 // Curiosidad diaria 12:00
-cron.schedule('28 13 * * *', async () => {
+// Curiosidad diaria + mensaje de buenas noches - 22:00
+cron.schedule('37 23 * * *', async () => {
   const fact = await getCuriosity();
   const keyword = extractKeyword(fact);
   const imageUrl = await getImage(keyword);
   const id = Date.now();
   factsCache[id] = fact;
 
-  bot.sendPhoto(chatId, imageUrl, {
+  // 🧠 Enviar primero la curiosidad
+  await bot.sendPhoto(chatId, imageUrl, {
     caption: `🧠 Curiosity of the Day:\n${fact}`,
     reply_markup: {
       inline_keyboard: [
@@ -1058,11 +1060,15 @@ cron.schedule('28 13 * * *', async () => {
       ]
     }
   });
+
+  // 😴 Luego el mensaje de buenas noches
   const mensaje = generarFrase(frasesBuenasNoches);
-  bot.sendMessage(chatId, mensaje + "\nDescansa 😴❤️");
+  await bot.sendMessage(chatId, mensaje + "\nDescansa 😴❤️");
+
 }, { timezone: "Europe/Dublin" });
 
 console.log("🚀 Bot avanzado con curiosidades, traducción y cron jobs en marcha...");
+
 
 
 
