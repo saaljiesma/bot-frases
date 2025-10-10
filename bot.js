@@ -1096,7 +1096,7 @@ const frasesAnimar = [
   "Es normal no estar siempre al 💯%",
   "No olvides que celebrar tu progreso es necesario",
   "Es importante ser amable contigo",
-  "Si perdonas a tus amigos y familiares cuando hacen las cosas mal, porque tu no te perdonas?"
+  "Si perdonas a tus amigos y familiares cuando hacen las cosas mal, porque tu no te perdonas?",
   "Solo recuerda que ya queda menos 🌻 \nMás alegría con una sola llamada: 👇https://wa.me/34642297675 📞"
 ];
 
@@ -1112,6 +1112,7 @@ bot.on('message', (msg) => {
 });
 
 console.log("🚀 Bot avanzado con curiosidades, traducción y cron jobs en marcha...");
+
 
 
 
