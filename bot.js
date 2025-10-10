@@ -2,7 +2,6 @@ require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
 const cron = require('node-cron');
 const fs = require('fs');
-const fetch = require('node-fetch');
 
 // ======== CONFIGURACIÓN ========
 const token = process.env.TELEGRAM_BOT_TOKEN;
@@ -95,7 +94,7 @@ const cancionesBuenosDias = [
   "https://www.youtube.com/watch?v=09t5T6JjUeE"
 ];
 
-// ======== CURIOOSIDADES ========
+// ======== CURIOSIDADES ========
 const factsCache = {};
 
 async function getCuriosity() {
@@ -194,7 +193,6 @@ cron.schedule('55 15 * * *', () => {
 
 // Buenas noches + curiosidad diaria 22:00
 cron.schedule('0 22 * * *', async () => {
-  // Curiosidad
   const fact = await getCuriosity();
   const keyword = extractKeyword(fact);
   const imageUrl = await getImage(keyword);
@@ -210,7 +208,6 @@ cron.schedule('0 22 * * *', async () => {
     }
   });
 
-  // Mensaje de buenas noches
   const mensaje = generarFraseUnica("frasesBuenasNochesUsadas", frasesBuenasNoches);
   await bot.sendMessage(chatId, mensaje + "\nDescansa 😴❤️");
 }, { timezone: "Europe/Dublin" });
