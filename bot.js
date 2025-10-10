@@ -20,7 +20,7 @@ function generarFrase(arreglo) {
 // ======== FRASES Y CANCIONES ========
 const frasesMotivadoras = [
  "🌄 Las actitudes mueven montañas. Cuando crees en ti y das lo mejor, lo imposible empieza a suceder",
-  "Pega un grito y vuelve al ruedo 🛞",
+  "¡Pega un grito y vuelta al ruedo! 🐂",
   "Recuerda que no eres un ángel solo por tu apellido, sino por tus alas, asi que echa a volar 🪽🪽",
   "Es normal no estar siempre al 💯%",
   "No olvides que celebrar tu progreso es necesario",
@@ -1091,7 +1091,7 @@ const frasesAnimar = [
   "Dicen que hacer cosas por los demás, te hace feliz, asi que hazme un bizum",
   "Recuerda el porque estás aquí y lo que vas a llegar a ser",
   "🌄 Las actitudes mueven montañas. Cuando crees en ti y das lo mejor, lo imposible empieza a suceder",
-  "Pega un grito y vuelve al ruedo 🛞",
+  "¡Pega un grito y vuelta al ruedo! 🐂",
   "Recuerda que no eres un ángel solo por tu apellido, sino por tus alas, asi que echa a volar 🪽🪽",
   "Es normal no estar siempre al 💯%",
   "No olvides que celebrar tu progreso es necesario",
@@ -1112,6 +1112,7 @@ bot.on('message', (msg) => {
 });
 
 console.log("🚀 Bot avanzado con curiosidades, traducción y cron jobs en marcha...");
+
 
 
 
