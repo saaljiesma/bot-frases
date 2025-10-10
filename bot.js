@@ -1043,7 +1043,7 @@ cron.schedule('58 12 * * *', () => {
 }, { timezone: "Europe/Dublin" });
 
 // Curiosidad diaria 12:00
-cron.schedule('0 12 * * *', async () => {
+cron.schedule('28 13 * * *', async () => {
   const fact = await getCuriosity();
   const keyword = extractKeyword(fact);
   const imageUrl = await getImage(keyword);
@@ -1058,9 +1058,12 @@ cron.schedule('0 12 * * *', async () => {
       ]
     }
   });
+  const mensaje = generarFrase(frasesBuenasNoches);
+  bot.sendMessage(chatId, mensaje + "\nDescansa 😴❤️");
 }, { timezone: "Europe/Dublin" });
 
 console.log("🚀 Bot avanzado con curiosidades, traducción y cron jobs en marcha...");
+
 
 
 
