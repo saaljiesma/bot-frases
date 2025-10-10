@@ -1044,7 +1044,7 @@ cron.schedule('58 12 * * *', () => {
 
 // Curiosidad diaria 12:00
 // Curiosidad diaria + mensaje de buenas noches - 22:00
-cron.schedule('37 23 * * *', async () => {
+cron.schedule('39 13 * * *', async () => {
   const fact = await getCuriosity();
   const keyword = extractKeyword(fact);
   const imageUrl = await getImage(keyword);
@@ -1068,6 +1068,7 @@ cron.schedule('37 23 * * *', async () => {
 }, { timezone: "Europe/Dublin" });
 
 console.log("🚀 Bot avanzado con curiosidades, traducción y cron jobs en marcha...");
+
 
 
 
