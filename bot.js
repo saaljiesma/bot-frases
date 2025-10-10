@@ -805,85 +805,114 @@ const frasesBuenosDias = [
   "Que cada instante de hoy te acerque a tus sueños 🌈💖"
 ];
 
-
 // ======== CANCIONES PARA BUENOS DÍAS ========
-const cancionesBuenosDias = [  // Lista de todas las canciones que pediste (Marta Santos, Depole, Pol Granch, Ana Mena, Melendi, Funzo, Duende Callejero, El Canto del Loco, David Guetta, Coldplay, Maroon 5, Imagine Dragons, Avicii, Efecto Pasillo)
-  //Disney
-  "https://www.youtube.com/watch?v=wEXavSbny6w",
-  "https://youtu.be/BJVToi8A3v8",
-  "https://youtu.be/R-AfdmiuAT0",
-  "https://youtu.be/LYdG2w8jbws",
-  "https://www.youtube.com/watch?v=5k8NySrpplY",
-  "https://www.youtube.com/watch?v=sG__fKxyaaM&list=RDsG__fKxyaaM&start_radio=1",
-  "https://youtu.be/ekQ__vJxOFQ",
-  "https://www.youtube.com/watch?v=CBHR9HN3Gk8",
-  "https://www.youtube.com/watch?v=knCXRXuOOko&list=RDknCXRXuOOko&start_radio=1",
-  "https://www.youtube.com/watch?v=DGp1TxwMdtY&t",
-  "https://www.youtube.com/watch?v=WpxbgphcTxw",
-  "https://www.youtube.com/watch?v=OaB43Q8my_M&list=RDOaB43Q8my_M&start_radio=1",
-  "https://www.youtube.com/watch?v=RbRzHhmVR64&list=RDRbRzHhmVR64&start_radio=1",
-  "https://www.youtube.com/watch?v=6G8jm95rlIg&list=RD6G8jm95rlIg&start_radio=1",
-  "https://www.youtube.com/watch?v=cPn9tCoWD40&list=RDcPn9tCoWD40&start_radio=1",
-  "https://www.youtube.com/watch?v=yMyJKJAyakM&list=RDyMyJKJAyakM&start_radio=1",
-  "https://www.youtube.com/watch?v=eznXJEjvHbk&list=RDeznXJEjvHbk&start_radio=1",
-  "https://www.youtube.com/watch?v=JmP89cIGJZM&list=RDJmP89cIGJZM&start_radio=1",
-  "https://www.youtube.com/watch?v=A9UdCLGvjXg&list=RDA9UdCLGvjXg&start_radio=1",
-  "https://www.youtube.com/watch?v=s0VcRAfXzLY&list=RDs0VcRAfXzLY&start_radio=1",
-  "https://www.youtube.com/watch?v=hvaqFn5dvhU&list=RDhvaqFn5dvhU&start_radio=1",
-  "https://www.youtube.com/watch?v=dvgZkm1xWPE&list=RDdvgZkm1xWPE&start_radio=1",
-  
-  // Marta santos
-  "https://www.youtube.com/watch?v=E3DssUsnWEU",
-  "https://www.youtube.com/watch?v=p3TzVLKY1RU&list=RDp3TzVLKY1RU&start_radio=1",
-   "https://www.youtube.com/watch?v=snynIT2nV5c",
-   "https://www.youtube.com/watch?v=qaYA35z0r1s&list=RDqaYA35z0r1s&start_radio=1",
-   "https://www.youtube.com/watch?v=9ZMLSI-wFSE&list=RD9ZMLSI-wFSE&start_radio=1",
-   "https://www.youtube.com/watch?v=iBhE1xMcmp0&list=RDiBhE1xMcmp0&start_radio=1",
-  // 50 canciones para subir el ánimo al instante
-  "https://www.youtube.com/watch?v=1dQ7yL0mTxQ",
-  "https://www.youtube.com/watch?v=ZbZSe6N_BXs",
-  "https://www.youtube.com/watch?v=gmj8HX0OmXc",
-  "https://www.youtube.com/watch?v=U2N5V_Tz9mA",
-  "https://www.youtube.com/watch?v=CevxZvSJLk8",
-  "https://www.youtube.com/watch?v=09R8_2nJtjg",
-  "https://www.youtube.com/watch?v=VbfpW0pbvaU",
-  "https://www.youtube.com/watch?v=2Vv-BfVoq4g",
-  "https://www.youtube.com/watch?v=kJQP7kiw5Fk",
-  "https://www.youtube.com/watch?v=6Ejga4kJUts",
-  "https://www.youtube.com/watch?v=3GwjfUFyY6M",
-  "https://www.youtube.com/watch?v=fLexgOxsZu0",
-  "https://www.youtube.com/watch?v=lWA2pjMjpBs",
-  "https://www.youtube.com/watch?v=09R8_2nJtjg",
-  "https://www.youtube.com/watch?v=uelHwf8o7_U",
-  "https://www.youtube.com/watch?v=09t5T6JjUeE",
-  "https://www.youtube.com/watch?v=PWgvGjAhvIw",
-  "https://www.youtube.com/watch?v=RgKAFK5djSk",
-  "https://www.youtube.com/watch?v=2vjPBrBU-TM",
-  "https://www.youtube.com/watch?v=2X_2IdybTV0",
-  "https://www.youtube.com/watch?v=l7Fd8-2llQI",
-  "https://www.youtube.com/watch?v=4J6c2j71B84",
-  "https://www.youtube.com/watch?v=9bZkp7q19f0",
-  "https://www.youtube.com/watch?v=oRdxUFDoQe0",
-  "https://www.youtube.com/watch?v=OPf0YbXqDm0",
-  "https://www.youtube.com/watch?v=YQHsXMglC9A",
-  "https://www.youtube.com/watch?v=hT_nvWreIhg",
-  "https://www.youtube.com/watch?v=fRh_vgS2dFE",
-  "https://www.youtube.com/watch?v=09R8_2nJtjg",
-  "https://www.youtube.com/watch?v=VbfpW0pbvaU",
-  "https://www.youtube.com/watch?v=09R8_2nJtjg",
-  "https://www.youtube.com/watch?v=kJQP7kiw5Fk",
-  "https://www.youtube.com/watch?v=uelHwf8o7_U",
-  "https://www.youtube.com/watch?v=RgKAFK5djSk",
-  "https://www.youtube.com/watch?v=CevxZvSJLk8",
-  "https://www.youtube.com/watch?v=NT0oM3b8xvQ",
-  "https://www.youtube.com/watch?v=2X_2IdybTV0",
-  "https://www.youtube.com/watch?v=fLexgOxsZu0",
-  "https://www.youtube.com/watch?v=PWgvGjAhvIw",
-  "https://www.youtube.com/watch?v=3GwjfUFyY6M",
-  "https://www.youtube.com/watch?v=6Ejga4kJUts",
-  "https://www.youtube.com/watch?v=lWA2pjMjpBs",
-  "https://www.youtube.com/watch?v=60ItHLz5WEA",
-  "https://www.youtube.com/watch?v=2Vv-BfVoq4g"
+const cancionesBuenosDias = [
+  // ==== Disney ====
+  "https://www.youtube.com/watch?v=wEXavSbny6w", // Hakuna Matata – El Rey León
+  "https://youtu.be/BJVToi8A3v8", // Un mundo ideal – Aladdín
+  "https://youtu.be/R-AfdmiuAT0", // Suéltalo (Let It Go) – Frozen
+  "https://youtu.be/LYdG2w8jbws", // Bajo el mar – La Sirenita
+  "https://www.youtube.com/watch?v=5k8NySrpplY", // Colores en el viento – Pocahontas
+  "https://www.youtube.com/watch?v=sG__fKxyaaM&list=RDsG__fKxyaaM&start_radio=1", // En mi corazón vivirás – Tarzán (Phil Collins)
+  "https://youtu.be/ekQ__vJxOFQ", // No hablaré de mi amor – Hércules
+  "https://www.youtube.com/watch?v=CBHR9HN3Gk8", // ¡Qué festín! – La Bella y la Bestia
+  "https://www.youtube.com/watch?v=knCXRXuOOko&list=RDknCXRXuOOko&start_radio=1", // Recuérdame – Coco
+  "https://www.youtube.com/watch?v=DGp1TxwMdtY&t", // Hay un amigo en mí – Toy Story
+  "https://www.youtube.com/watch?v=WpxbgphcTxw", // Let It Go (versión original) – Idina Menzel
+  "https://www.youtube.com/watch?v=OaB43Q8my_M&list=RDOaB43Q8my_M&start_radio=1", // Circle of Life – The Lion King
+  "https://www.youtube.com/watch?v=RbRzHhmVR64&list=RDRbRzHhmVR64&start_radio=1", // Try Everything – Shakira (Zootrópolis)
+  "https://www.youtube.com/watch?v=6G8jm95rlIg&list=RD6G8jm95rlIg&start_radio=1", // How Far I'll Go – Vaiana
+  "https://www.youtube.com/watch?v=cPn9tCoWD40&list=RDcPn9tCoWD40&start_radio=1", // Into the Unknown – Frozen 2
+  "https://www.youtube.com/watch?v=yMyJKJAyakM&list=RDyMyJKJAyakM&start_radio=1", // Life is a Highway – Cars
+  "https://www.youtube.com/watch?v=eznXJEjvHbk&list=RDeznXJEjvHbk&start_radio=1", // When You Wish Upon a Star – Pinocho
+  "https://www.youtube.com/watch?v=JmP89cIGJZM&list=RDJmP89cIGJZM&start_radio=1", // You'll Be in My Heart – Tarzán
+  "https://www.youtube.com/watch?v=A9UdCLGvjXg&list=RDA9UdCLGvjXg&start_radio=1", // Go the Distance – Hércules
+  "https://www.youtube.com/watch?v=s0VcRAfXzLY&list=RDs0VcRAfXzLY&start_radio=1", // Let It Grow – Lorax
+  "https://www.youtube.com/watch?v=hvaqFn5dvhU&list=RDhvaqFn5dvhU&start_radio=1", // Happy – Pharrell Williams (Mi villano favorito 2)
+  "https://www.youtube.com/watch?v=dvgZkm1xWPE&list=RDdvgZkm1xWPE&start_radio=1", // Viva la Vida – Coldplay
+
+  // ==== Marta Santos ====
+  "https://www.youtube.com/watch?v=E3DssUsnWEU", // Marta Santos – Algo sencillito
+  "https://www.youtube.com/watch?v=p3TzVLKY1RU&list=RDp3TzVLKY1RU&start_radio=1", // Marta Santos – Contigo
+  "https://www.youtube.com/watch?v=snynIT2nV5c", // Marta Santos – Me sabe a sal
+  "https://www.youtube.com/watch?v=qaYA35z0r1s&list=RDqaYA35z0r1s&start_radio=1", // Marta Santos – Las cosas más pequeñitas
+  "https://www.youtube.com/watch?v=9ZMLSI-wFSE&list=RD9ZMLSI-wFSE&start_radio=1", // Marta Santos – Poquito a poquito
+  "https://www.youtube.com/watch?v=iBhE1xMcmp0&list=RDiBhE1xMcmp0&start_radio=1", // Marta Santos – La bachata
+  "https://youtu.be/C9MIMACSXV0?si=Ej-4pT_FIq3NCZDw", //Marta Santos - Por ti
+
+  // ==== 50 canciones para subir el ánimo ====
+  "https://www.youtube.com/watch?v=lcxLo7SbaJ8&list=RDlcxLo7SbaJ8&start_radio=1", //Dvicio - Paraiso
+  "https://www.youtube.com/watch?v=lIe4VHXpftg&list=RDlIe4VHXpftg&start_radio=1", // Juan Magan - Te voy a esperar
+  "https://www.youtube.com/watch?v=TENBteyH4uk&list=RDTENBteyH4uk&start_radio=1", // Shakira - Addicted to you
+  "https://www.youtube.com/watch?v=czWcyZRAMtk&list=RDczWcyZRAMtk&start_radio=1", // Shakira - Waka waka
+  "https://www.youtube.com/watch?v=PO2Fm4-WRjo&list=RDPO2Fm4-WRjo&start_radio=1", // K'NAAN - Wavin' Flag | World Cup Song
+  "https://www.youtube.com/watch?v=4gEDBoUfPZg&list=PL9XoSLEkeG4j6IB4bTWhn-w53tw_FX0ZG&index=4", // Shakira - Inevitable
+  "https://www.youtube.com/watch?v=rSJ-NZGeBd0&list=PL9XoSLEkeG4j6IB4bTWhn-w53tw_FX0ZG&index=35", // Shakira - Las de la intuición
+  "https://www.youtube.com/watch?v=P0tTIQQZOVY&list=PL9XoSLEkeG4j6IB4bTWhn-w53tw_FX0ZG&index=36", // Shakira - Soltera
+  "https://www.youtube.com/watch?v=sr7r_ABlkYY&start_radio=1", // Joven para siempre - Funzo
+  "https://www.youtube.com/watch?v=tobDx2Jc5cQ&start_radio=1", // Inmortales - Funzo
+  "https://www.youtube.com/watch?v=5aEApVK5i_g&start_radio=1", // Jovenes no tan locos - Funzo
+  "https://www.youtube.com/watch?v=T8gzgj6W7UA&start_radio=1", // Tu calorro - Estopa
+  "https://www.youtube.com/watch?v=3TeQH_SH3lA&list=RD3TeQH_SH3lA&start_radio=1", // Paseo - Estopa
+  "https://www.youtube.com/watch?v=BxA_Qq-PvwI&list=PL6mpyAioMZGg2uQeRAJlDQEHqiI5pdT4c&index=3", // Vacaciones - Estopa
+  "https://www.youtube.com/watch?v=a8Rwz6zBJSE&list=RDa8Rwz6zBJSE&start_radio=1", // Shakira - (Whenever, Wherever)
+  "https://www.youtube.com/watch?v=g3bX--H6Rms",
+  "https://www.youtube.com/watch?v=JDglMK9sgIQ&list=RDJDglMK9sgIQ&start_radio=1", // Avicii
+  "https://www.youtube.com/watch?v=JRfuAukYTKg&list=RDJRfuAukYTKg&start_radio=1", //David - Titanium
+  "https://www.youtube.com/watch?v=HABmPz2mmNw&list=RDHABmPz2mmNw&start_radio=1", // La la you - No se te puede dejar nada
+  "https://www.youtube.com/watch?v=6cF6b6pLijE&list=RD6cF6b6pLijE&start_radio=1", // El fin del mundo
+  "https://www.youtube.com/watch?v=_KSyWS8UgA4", // Yo te esperaré
+  "https://www.youtube.com/watch?v=7XPmRUp_Yf4&list=RD7XPmRUp_Yf4&start_radio=1", // Melendi - La Promesa
+  "https://www.youtube.com/watch?v=uZQvJ3jnc3U&list=RDGMEMQ1dJ7wXfLlqCjwV0xfSNbA&index=5", // Luis cortés - Al alba
+  "https://www.youtube.com/watch?v=DGp1TxwMdtY&list=RDDGp1TxwMdtY&start_radio=1",// Barre las penas
+  "https://www.youtube.com/watch?v=OaB43Q8my_M&list=RDOaB43Q8my_M&start_radio=1", // Entre tu y yo
+  "https://www.youtube.com/watch?v=G_n3NnM6lW0&start_radio=1", // La jungla de alquitrán
+  "https://www.youtube.com/watch?v=ciBfeQ6mQIg&list=PLY0tli1PxV_oedbXOlfaZa5Xc27wFyH6j&index=21", // La cueva
+  "https://www.youtube.com/watch?v=WpxbgphcTxw&list=RDWpxbgphcTxw&start_radio=1", //Nuestro techo de cristal
+  "https://www.youtube.com/watch?v=yMyJKJAyakM&list=RDEMwdk4ZqpIlPcgKuNa62WACA&start_radio=1", // A la luz de San Lorenzo
+  "https://www.youtube.com/watch?v=RbRzHhmVR64&list=RDEMwdk4ZqpIlPcgKuNa62WACA&index=2", // El aire de la calle
+  "https://www.youtube.com/watch?v=MfILTRB6h4I&list=RDEMwdk4ZqpIlPcgKuNa62WACA&index=4", // La primavera trompetera
+  "https://www.youtube.com/watch?v=fQkLgTxkrS0&list=RDEMIEKPHxWxjqis2cpiDgCbVA&start_radio=1", // Hens - %
+  "https://www.youtube.com/watch?v=X1w5L0Q1qxs&list=RDEMIEKPHxWxjqis2cpiDgCbVA&index=3", // Hens - Dos días al mes
+  "https://www.youtube.com/watch?v=ER70ml5RE5M&list=RDEMIEKPHxWxjqis2cpiDgCbVA&index=4", // Hens - Me encanta
+  "https://www.youtube.com/watch?v=4h0BSep-4xs&list=RD4h0BSep-4xs&start_radio=1", // Melendi -  Tu jardin con enanitos
+  "https://www.youtube.com/watch?v=N0JPebMqAZM", // Javi Medina - Me la llevo
+  "https://www.youtube.com/watch?v=YbADVar8tjY&list=RDYbADVar8tjY&start_radio=1", // Melendi - Lágrimas desordenadas
+  "https://www.youtube.com/watch?v=hvaqFn5dvhU&list=RDhvaqFn5dvhU&start_radio=1", // Cuando me siento bien
+  "https://www.youtube.com/watch?v=bODnuacGIqU&list=RDbODnuacGIqU&start_radio=1", // Nubes de pegatina
+  "https://www.youtube.com/watch?v=a5fgQC4CrTo&list=RDa5fgQC4CrTo&start_radio=1", // Astola - Ermitaño
+  "https://www.youtube.com/watch?v=0PvOcVfRU84&list=RD0PvOcVfRU84&index=2", // Cojo el saco y me retiro
+  "https://www.youtube.com/watch?v=NFSyl3pwa-A", // La pegatina - Mari carmen
+  "https://www.youtube.com/watch?v=Lvj7U8FkgCM&list=RDLvj7U8FkgCM&start_radio=1", // Una boda en las vegas
+  "https://www.youtube.com/watch?v=s0VcRAfXzLY&list=RDs0VcRAfXzLY&start_radio=1", // Para que el mundo lo vea
+  "https://www.youtube.com/watch?v=MfuilZ3GVog&list=RDMfuilZ3GVog&start_radio=1", // Hola buenos días
+  "https://www.youtube.com/watch?v=1dQ7yL0mTxQ", // Funzo & Baby Loud – Malibú con Piña
+  "https://www.youtube.com/watch?v=ZbZSe6N_BXs", // Pharrell Williams – Happy
+  "https://www.youtube.com/watch?v=gmj8HX0OmXc", // Efecto Pasillo – Pan y mantequilla
+  "https://www.youtube.com/watch?v=U2N5V_Tz9mA", // Melendi – Destino o casualidad
+  "https://www.youtube.com/watch?v=CevxZvSJLk8", // Katy Perry – Roar
+  "https://www.youtube.com/watch?v=09R8_2nJtjg", // Maroon 5 – Sugar
+  "https://www.youtube.com/watch?v=VbfpW0pbvaU", // OneRepublic – Counting Stars
+  "https://www.youtube.com/watch?v=2Vv-BfVoq4g", // Ed Sheeran – Perfect
+  "https://www.youtube.com/watch?v=6Ejga4kJUts", // The Cranberries – Zombie
+  "https://www.youtube.com/watch?v=3GwjfUFyY6M", // Kool & The Gang – Celebration
+  "https://www.youtube.com/watch?v=fLexgOxsZu0", // Bruno Mars – The Lazy Song
+  "https://www.youtube.com/watch?v=lWA2pjMjpBs", // Rihanna – Diamonds
+  "https://www.youtube.com/watch?v=uelHwf8o7_U", // Eminem ft. Rihanna – Love the Way You Lie
+  "https://www.youtube.com/watch?v=PWgvGjAhvIw", // Justin Timberlake – Can't Stop the Feeling
+  "https://www.youtube.com/watch?v=RgKAFK5djSk", // Wiz Khalifa ft. Charlie Puth – See You Again
+  "https://www.youtube.com/watch?v=2vjPBrBU-TM", // Sia – Chandelier
+  "https://www.youtube.com/watch?v=2X_2IdybTV0", // Avicii – The Nights
+  "https://www.youtube.com/watch?v=l7Fd8-2llQI", // Depol – Quiero decirte
+  "https://www.youtube.com/watch?v=4J6c2j71B84", // Duende Callejero – Todo lo que tengo
+  "https://www.youtube.com/watch?v=oRdxUFDoQe0", // Michael Jackson – Beat It
+  "https://www.youtube.com/watch?v=OPf0YbXqDm0", // Mark Ronson ft. Bruno Mars – Uptown Funk
+  "https://www.youtube.com/watch?v=YQHsXMglC9A", // Adele – Hello
+  "https://www.youtube.com/watch?v=hT_nvWreIhg", // OneRepublic – Apologize
+  "https://www.youtube.com/watch?v=fRh_vgS2dFE", // Justin Bieber – Sorry
+  "https://www.youtube.com/watch?v=NT0oM3b8xvQ", // Imagine Dragons – On Top of the World
+  "https://www.youtube.com/watch?v=60ItHLz5WEA", // Alan Walker – Faded
+  "https://www.youtube.com/watch?v=09t5T6JjUeE" // El Canto del Loco – Volver a disfrutar
 ];
 
 
@@ -1032,4 +1061,5 @@ cron.schedule('0 12 * * *', async () => {
 }, { timezone: "Europe/Dublin" });
 
 console.log("🚀 Bot avanzado con curiosidades, traducción y cron jobs en marcha...");
+
 
