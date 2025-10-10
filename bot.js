@@ -9,37 +9,43 @@ const chatId = process.env.CHAT_ID;
 const unsplashKey = process.env.UNSPLASH_KEY;
 const bot = new TelegramBot(token, { polling: true });
 
-// ======== FRASES MOTIVADORAS ========
+// Cache para almacenar curiosidades con ID
+const factsCache = {};
+
+// ======== FUNCIONES AUXILIARES ========
+function generarFrase(arreglo) {
+  return arreglo[Math.floor(Math.random() * arreglo.length)];
+}
+
+// ======== FRASES Y CANCIONES ========
 const frasesMotivadoras = [
   "Hoy es un buen día para empezar algo nuevo 🌞✨",
   "Si puedes soñarlo, puedes lograrlo 💭🚀"
 ];
 
-// ======== FRASES DE BUENOS DÍAS ========
+const frasesBuenasNoches = [
+  "Que tengas una noche llena de calma y sueños bonitos 🌙💤",
+  "Buenas noches, descansa profundamente y sueña con tranquilidad 🌙✨"
+];
+
 const frasesBuenosDias = [
   "¡Buenos días! Que tengas un día lleno de energía y alegría 🌞✨",
   "Que cada instante de hoy te acerque a tus sueños 🌈💖"
 ];
 
-// ======== CANCIONES PARA BUENOS DÍAS ========
 const cancionesBuenosDias = [
   "https://www.youtube.com/watch?v=wEXavSbny6w",
   "https://www.youtube.com/watch?v=2Vv-BfVoq4g"
 ];
 
-// ======== ARCHIVO PARA GUARDAR ESTADO DE CANCIONES ========
 const estadoArchivo = './estado.json';
 let estado = { cancionesEnviadas: [] };
 if (fs.existsSync(estadoArchivo)) {
   estado = JSON.parse(fs.readFileSync(estadoArchivo));
 }
+
 function guardarEstado() {
   fs.writeFileSync(estadoArchivo, JSON.stringify(estado, null, 2));
-}
-
-// ======== FUNCIONES AUXILIARES ========
-function generarFrase(arreglo) {
-  return arreglo[Math.floor(Math.random() * arreglo.length)];
 }
 
 function generarCancionUnica() {
@@ -57,43 +63,13 @@ function generarCancionUnica() {
 
 function enviarCancionYFrase(chatId) {
   const cancion = generarCancionUnica();
-  bot.sendMessage(chatId, `¡Buenos días! Empieza el día con energía. Disfruta esta canción: ${cancion}`).then(() => {
+  bot.sendMessage(chatId, `¡Buenos días! Disfruta esta canción: ${cancion}`).then(() => {
     const frase = generarFrase(frasesBuenosDias);
     bot.sendMessage(chatId, `🌞 ${frase}`);
   });
 }
 
-// ======== ENVÍO DIARIO ========
-cron.schedule('0 8 * * *', () => { enviarCancionYFrase(chatId); console.log('Canción y frase de buenos días enviadas'); }, { timezone: "Europe/Dublin" });
-cron.schedule('55 15 * * *', () => { 
-  const frase = generarFrase(frasesMotivadoras);
-  bot.sendMessage(chatId, frase + "\n ¡Ánimo! 💪"); 
-  console.log('Frase motivadora enviada:', frase);
-}, { timezone: "Europe/Dublin" });
-cron.schedule('0 22 * * *', () => { 
-  const mensaje = generarFrase(frasesBuenosDias); 
-  bot.sendMessage(chatId, mensaje + "\nDescansa 😴"); 
-  console.log('Mensaje de buenas noches enviado:', mensaje);
-}, { timezone: "Europe/Dublin" });
-
-// ======== DETECCIÓN DE ESTADO DE ÁNIMO ========
-const palabrasNegativas = ["mal", "estresada", "bajón", "bajona", "triste", "agotada", "cansada"];
-const frasesAnimar = [
-  "¡Ánimo! Todo pasa y siempre hay un motivo para sonreír 😊✨",
-  "Respira hondo, relájate y recuerda que eres fuerte 💪🌸"
-];
-
-bot.on('message', (msg) => {
-  if (msg.from.is_bot) return; // ❌ Ignorar otros bots
-  const texto = msg.text?.toLowerCase() || '';
-  if (palabrasNegativas.some(palabra => texto.includes(palabra))) {
-    const mensajeAnimador = generarFrase(frasesAnimar);
-    bot.sendMessage(msg.chat.id, mensajeAnimador, { disable_web_page_preview: true });
-    console.log('Mensaje animador enviado:', mensajeAnimador);
-  }
-});
-
-// ======== FUNCIONES PARA CURIOSIDADES ========
+// ======== CURIOSIDADES ========
 async function getCuriosity() {
   try {
     const res = await fetch("https://uselessfacts.jsph.pl/random.json?language=en");
@@ -105,39 +81,60 @@ async function getCuriosity() {
   }
 }
 
-async function translateToSpanish(text) {
+function extractKeyword(fact) {
+  const words = fact.split(" ").filter(w => w.length > 4);
+  return words[Math.floor(Math.random() * words.length)] || "science";
+}
+
+async function getImage(keyword) {
   try {
-    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|es`;
-    const res = await fetch(url);
+    const randomSeed = Math.floor(Math.random() * 100000);
+    const res = await fetch(`https://api.unsplash.com/photos/random?query=${encodeURIComponent(keyword)}&orientation=landscape&client_id=${unsplashKey}&sig=${randomSeed}`);
     const data = await res.json();
-    return data.responseData.translatedText;
+    return data.urls?.regular || "https://picsum.photos/800/400";
   } catch (err) {
-    console.error("❌ Error traduciendo:", err);
-    return "⚠️ No se pudo traducir.";
+    console.error("❌ Error obteniendo imagen:", err);
+    return "https://picsum.photos/800/400";
   }
 }
 
-// ======== COMANDO /curiosity CON BOTÓN ========
+// ======== BOT COMMANDS ========
 bot.onText(/\/curiosity/, async (msg) => {
-  if (msg.from.is_bot) return;
   const chat_id = msg.chat.id;
   const fact = await getCuriosity();
-  bot.sendMessage(chat_id, `🧠 Curiosity of the Day:\n${fact}`, {
+  const keyword = extractKeyword(fact);
+  const imageUrl = await getImage(keyword);
+
+  const id = Date.now();
+  factsCache[id] = fact;
+
+  bot.sendPhoto(chat_id, imageUrl, {
+    caption: `🧠 Curiosity of the Day:\n${fact}`,
     reply_markup: {
       inline_keyboard: [
-        [{ text: "🇪🇸 Traducir al español", callback_data: `translate|${fact}` }]
+        [{ text: "🇪🇸 Traducir al español", callback_data: `translate|${id}` }]
       ]
     }
   });
 });
 
-// ======== ACCIONES DE BOTONES ========
+// ======== TRADUCCIÓN ========
+async function translateToSpanish(text) {
+  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|es`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.responseData.translatedText;
+}
+
 bot.on("callback_query", async (query) => {
   const chatId = query.message.chat.id;
   const action = query.data;
 
   if (action.startsWith("translate|")) {
-    const originalText = action.split("|")[1];
+    const id = action.split("|")[1];
+    const originalText = factsCache[id];
+    if (!originalText) return bot.answerCallbackQuery(query.id, { text: "⚠️ Curiosidad no disponible" });
+
     const translated = await translateToSpanish(originalText);
     bot.sendMessage(chatId, `🇪🇸 Traducción:\n${translated}`);
   }
@@ -145,17 +142,38 @@ bot.on("callback_query", async (query) => {
   bot.answerCallbackQuery(query.id);
 });
 
-// ======== ENVÍO AUTOMÁTICO DE CURIOSIDADES DIARIAS 12:00 ========
+// ======== CRON JOBS ========
+// Buenos días 08:00
+cron.schedule('0 8 * * *', () => enviarCancionYFrase(chatId), { timezone: "Europe/Dublin" });
+
+// Frase motivadora 15:55
+cron.schedule('55 15 * * *', () => {
+  const frase = generarFrase(frasesMotivadoras);
+  bot.sendMessage(chatId, frase + "\nDescansa o anímate a seguir 💪");
+}, { timezone: "Europe/Dublin" });
+
+// Buenas noches 22:00
+cron.schedule('0 22 * * *', () => {
+  const mensaje = generarFrase(frasesBuenasNoches);
+  bot.sendMessage(chatId, mensaje + "\nDescansa 😴❤️");
+}, { timezone: "Europe/Dublin" });
+
+// Curiosidad diaria 12:00
 cron.schedule('0 12 * * *', async () => {
   const fact = await getCuriosity();
-  bot.sendMessage(chatId, `🧠 Curiosity of the Day:\n${fact}`, {
+  const keyword = extractKeyword(fact);
+  const imageUrl = await getImage(keyword);
+  const id = Date.now();
+  factsCache[id] = fact;
+
+  bot.sendPhoto(chatId, imageUrl, {
+    caption: `🧠 Curiosity of the Day:\n${fact}`,
     reply_markup: {
       inline_keyboard: [
-        [{ text: "🇪🇸 Traducir al español", callback_data: `translate|${fact}` }]
+        [{ text: "🇪🇸 Traducir al español", callback_data: `translate|${id}` }]
       ]
     }
   });
-  console.log('Curiosidad diaria enviada:', fact);
 }, { timezone: "Europe/Dublin" });
 
-console.log('Bot avanzado iniciado y listo. 🌞🎵');
+console.log("🚀 Bot avanzado con curiosidades, traducción y cron jobs en marcha...");
