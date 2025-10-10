@@ -18,7 +18,15 @@ function generarFrase(arreglo) {
 }
 
 // ======== FRASES Y CANCIONES ========
-const frasesMotivadoras = ["Hoy es un buen día para empezar algo nuevo 🌞✨",
+const frasesMotivadoras = [
+ "🌄 Las actitudes mueven montañas. Cuando crees en ti y das lo mejor, lo imposible empieza a suceder",
+  "Pega un grito y vuelve al ruedo 🛞",
+  "Recuerda que no eres un ángel solo por tu apellido, sino por tus alas, asi que echa a volar 🪽🪽",
+  "Es normal no estar siempre al 💯%",
+  "No olvides que celebrar tu progreso es necesario",
+  "Es importante ser amable contigo",
+  "Si perdonas a tus amigos y familiares cuando hacen las cosas mal, porque tu no te perdonas?",  
+"Hoy es un buen día para empezar algo nuevo 🌞✨",
 "Cada pequeño paso cuenta, incluso si parece insignificante 👣💪",
 "Sonríe, aunque sea difícil: tu ánimo puede cambiar todo 😊🌈",
 "Incluso las tormentas traen lluvia que hace crecer cosas hermosas 🌧️🌱",
@@ -1083,8 +1091,12 @@ const frasesAnimar = [
   "Dicen que hacer cosas por los demás, te hace feliz, asi que hazme un bizum",
   "Recuerda el porque estás aquí y lo que vas a llegar a ser",
   "🌄 Las actitudes mueven montañas. Cuando crees en ti y das lo mejor, lo imposible empieza a suceder",
-  "Pega un grito y vuelve al ruedo",
-  "Recuerda que no eres un ángel solo por tu apellido, sino por tus alas, asi que echa a volar 🪽",
+  "Pega un grito y vuelve al ruedo 🛞",
+  "Recuerda que no eres un ángel solo por tu apellido, sino por tus alas, asi que echa a volar 🪽🪽",
+  "Es normal no estar siempre al 💯%",
+  "No olvides que celebrar tu progreso es necesario",
+  "Es importante ser amable contigo",
+  "Si perdonas a tus amigos y familiares cuando hacen las cosas mal, porque tu no te perdonas?"
   "Solo recuerda que ya queda menos 🌻 \nMás alegría con una sola llamada: 👇https://wa.me/34642297675 📞"
 ];
 
@@ -1100,6 +1112,7 @@ bot.on('message', (msg) => {
 });
 
 console.log("🚀 Bot avanzado con curiosidades, traducción y cron jobs en marcha...");
+
 
 
 
