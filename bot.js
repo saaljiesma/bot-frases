@@ -1037,7 +1037,7 @@ cron.schedule('55 15 * * *', () => {
 }, { timezone: "Europe/Dublin" });
 
 // Buenas noches 22:00
-cron.schedule('0 22 * * *', () => {
+cron.schedule('58 12 * * *', () => {
   const mensaje = generarFrase(frasesBuenasNoches);
   bot.sendMessage(chatId, mensaje + "\nDescansa 😴❤️");
 }, { timezone: "Europe/Dublin" });
@@ -1061,5 +1061,6 @@ cron.schedule('0 12 * * *', async () => {
 }, { timezone: "Europe/Dublin" });
 
 console.log("🚀 Bot avanzado con curiosidades, traducción y cron jobs en marcha...");
+
 
 
